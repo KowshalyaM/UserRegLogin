@@ -17,15 +17,15 @@ return (
         {/* <a className="navbar-brand" href="#">USERS</a> */}
        
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
                 {user?<><li className="nav-item">
-                    <Link to="/dashboard"  className="nav-link">Home</Link>
+                    <Link to="/dashboard"  className="nav-link pr-3">Home</Link>
                 </li><li className="nav-item">
                 <Link onClick={this.props.logout}  className="nav-link">Logout</Link>
                 </li></>: <><li className="nav-item">
                     {/* <a className="nav-link" href="#">Login</a> */}
-                    <Link to="/"  className="nav-link">Login</Link>
+                    <Link to="/"  className="nav-link pr-3">Login</Link>
                 </li>
                 <li className="nav-item">
                 <Link to="/signup"  className="nav-link">Register</Link>

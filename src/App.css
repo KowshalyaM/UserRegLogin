@@ -40,3 +40,9 @@
   top: 50%;
   position: absolute;
 }
+.navbar-collapse{
+  display :flex;
+}
+.navbar-expand-lg .navbar-nav{
+  flex-direction: row;
+}
