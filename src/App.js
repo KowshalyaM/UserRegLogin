@@ -1,26 +1,72 @@
-import React from 'react';
+import React, { Component ,Fragment} from "react";
 import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import Dashboard from './components/Dashboard';
+import { connect } from 'react-redux';
+import {  Router, Route, Switch } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { history } from './backend';
+import { alertActions } from './actions';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    history.listen((location, action) => {
+        // clear alert on location change
+        this.props.clearAlerts();
+    });
 }
 
-export default App;
+
+  render() {
+    const { alert } = this.props;
+    return (
+   
+       <div>
+
+{alert.message &&
+                            <div className={`alert ${alert.type}`}>{alert.message}</div>
+                        }
+
+     <Router history={history}>
+<Navbar />
+<main class="login-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+        <Switch>
+        <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route path="/signup">
+           <Signup />
+          </Route>
+          {/* <Route path="/dashboard">
+            <Dashboard />
+          </Route> */}
+        </Switch>
+    </div>
+    </div>
+
+</main>
+</Router></div>
+  
+  );}
+}
+function mapState(state) {
+    const { alert } = state;
+    return { alert };
+}
+
+const actionCreators = {
+    clearAlerts: alertActions.clear
+};
+// export default App;
+const connectedApp = connect(mapState, actionCreators)(App);
+export { connectedApp as App };
